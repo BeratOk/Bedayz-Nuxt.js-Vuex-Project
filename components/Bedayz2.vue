@@ -30,7 +30,7 @@
                   <p @click="dropdown">Kupon Kodu Kullan ▼ </p>
                   <div :class="dropdownclassal7">
                       <p class="mt-9">Kupon kodunuzu buraya girin</p>
-                      <input v-model="kuponkod" placeholder="Kupon kodunuzu buraya giriniz" class="kupon">
+                      <input  placeholder="Kupon kodunuzu buraya giriniz" class="kupon">
                        <v-btn
                      class="ma-3"
                      tile
