@@ -1,7 +1,6 @@
 <template>
   <div class=header>
-  <Bedayz9 />
-  <Bedayz5 />
+  
   <Bedayz7 />
   </div>
   

@@ -9,13 +9,13 @@
       <div class=form>
   <v-form>
    <p class="kayitol"><span style="color: #ff0000;">*</span>Ad</p><p ></p>
-  <input v-model="message" placeholder="Ad" class="input">
+  <input v-model="name" placeholder="Ad" class="input">
    <p class="kayitol"><span style="color: #ff0000;">*</span>Soyad</p><p ></p>
-  <input v-model="message" placeholder="Soyad" class="input">
+  <input v-model="surname" placeholder="Soyad" class="input">
    <p class="kayitol"><span style="color: #ff0000;">*</span>E-Posta</p><p ></p>
-  <input v-model="message" type="email" placeholder="E-Posta" font-size="5px" class="input">
+  <input v-model="email" type="email" placeholder="E-Posta" font-size="5px" class="input">
    <p class="kayitol"><span style="color: #ff0000;">*</span>Telefon</p><p ></p>
-  <input v-model="message" type="number" placeholder="Telefon" class="input">
+  <input v-model="phonenumber" type="number" placeholder="Telefon" class="input">
        
   </v-form>
   </div>
@@ -23,9 +23,9 @@
     <div class=form>
   <v-form>
    <p class="kayitol"><span style="color: #ff0000;">*</span>Şifre</p><p ></p>
-  <input v-model="message" type="password" placeholder="Şifre" class="input">
+  <input v-model="password" type="password" placeholder="Şifre" class="input">
    <p class="kayitol"><span style="color: #ff0000;">*</span>Şifre Onayla</p><p ></p>
-  <input v-model="message" type="password"  placeholder="Şifre Onayla" class="input">  
+  <input v-model="password2" type="password"  placeholder="Şifre Onayla" class="input">  
   </v-form>
   </div>
   <p class="kayitol">Bülten Aboneliği</p>
@@ -50,18 +50,65 @@
  <v-btn class="ma-2"
       depressed
       color="primary"
+      @click="kontrol()"
     >
       DEVAM
     </v-btn>
+    <div class="error" v-if="error">{{error.message}}</div>
       </div>
   </div>
    </div>
 </template>
 <script>
-
+import firebase from '@firebase/app';
+require('firebase/auth');
 
 export default {
-  
+  data(){
+    return{
+    name:'',
+    surname:'',
+    phonenumber:'',
+    email:'',
+    password:'',
+    error:''
+  }
+  },
+  methods:{
+    kontrol(){
+      if(this.name==''){
+        alert('İsim Boş bırakılamaz')
+      }
+       else if(this.surname==''){
+        alert('Soyisim Boş bırakılamaz')
+      }
+       else if(this.phonenumber==''){
+        alert('Telefon Numarası Boş bırakılamaz')
+      }
+       else if(this.email==''){
+        alert('Email Boş bırakılamaz')
+      }
+       else if(this.password==''){
+        alert('Şifre Boş bırakılamaz')
+      }
+       else if(this.password != this.password2){
+         alert('Şifreler Eşleşmiyor')
+       }
+       else{ 
+         this.uyeol()
+       } 
+      
+
+    },
+    uyeol(){
+      firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
+      .then(data => {
+           console.log(data)
+           this.$router.push('/')
+
+         }  ).catch(error => (this.error = error))
+    }
+  }
  
 }
 </script>

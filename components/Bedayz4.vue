@@ -27,14 +27,15 @@
           
         
           <v-text-field class="inputtext"
-          
+            v-model = "email"  
             label="Mail"
             outlined
             dense
             
           ></v-text-field>
 
-          <v-text-field class="inputtext"          
+          <v-text-field class="inputtext" 
+           v-model = "password"         
             label="Şifre"
             :type="show1 ? 'text' : 'password'"
             outlined
@@ -46,11 +47,12 @@
       :loading="loading"
       :disabled="loading"
       color="secondary"
-      @click="loader = 'loading'"
+      
+      @click="pressed()"
     >
       DEVAM
     </v-btn>
-        
+        <div class="error" v-if="error">{{error.message}}</div>
         </v-row >
 
         <v-row class="altSekme">
@@ -75,9 +77,14 @@
   </div>
 </template>
 <script>
+import firebase from '@firebase/app';
+require('firebase/auth');
 export default {
     data () {
       return {
+        password : '',
+        email:'',
+        error:'',
         loader: null,
         loading: false,
         loading2: false,
@@ -85,6 +92,18 @@ export default {
         loading4: false,
         loading5: false,
       }
+    },
+    methods:{
+       pressed(){
+         firebase
+         .auth()
+         .signInWithEmailAndPassword(this.email,this.password)
+         .then(data => {
+           console.log(data)
+           this.$router.push('/')
+
+         }  ).catch(error => (this.error = error))
+       }
     },
     watch: {
       loader () {

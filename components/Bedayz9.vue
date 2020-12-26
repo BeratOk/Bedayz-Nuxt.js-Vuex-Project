@@ -33,7 +33,8 @@
        <NuxtLink to="/"> <img src="~/assets/images/logo.png"></NuxtLink>
      </div>
       <div class="icons">
-        <NuxtLink to="/uyegiris"><a href="#"><img src="~/assets/images/man.png" class="ortaicon" height="35px" width="35px"></a></NuxtLink>
+        <NuxtLink to="/userPage" v-if="loggedIn"><a href="#"><img src="~/assets/images/man.png" class="ortaicon" height="35px" width="35px"></a></NuxtLink>
+        <NuxtLink to="/uyegiris" v-else><a href="#"><img src="~/assets/images/man.png" class="ortaicon" height="35px" width="35px"></a></NuxtLink>
         <a href="#"><img src="~/assets/images/hearth.png" class="ortaicon" height="45px" width="45px"></a>
         <NuxtLink to="/sepetim"><img src="~/assets/images/cart.png" class="ortaicon" height="45px" width="45px"></NuxtLink>
         
@@ -46,14 +47,19 @@
 <script>
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
+import firebase from '@firebase/app';
+require('firebase/auth');
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 export default {
+  mounted(){
+    this.setupFirebase()
+  },
     data() {
       return {
+        loggedIn:false,
         dialog : false,
         selected: null,
         options: [
@@ -69,6 +75,29 @@ export default {
          
         ]
       }
+    },
+    methods:{
+      logout(){
+        alert('test')
+      },
+      setupFirebase(){
+        firebase.auth().onAuthStateChanged(user=>{
+          if(user){
+            console.log('user giriş yaptı');
+            this.loggedIn = true;
+
+          }else{
+            this.loggedIn=false;
+          }
+        })
+
+      },
+      logout(){
+        firebase.auth().signOut().then(()=>{
+          this.$router.push('/')
+        })
+      }
+
     }
   }
 </script>

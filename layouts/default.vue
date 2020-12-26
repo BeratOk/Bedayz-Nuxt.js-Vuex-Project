@@ -1,6 +1,10 @@
 <template>
   <div>
+    <Bedayz9 />
+    <Bedayz5 />
     <Nuxt />
+
+     
   </div>
 </template>
 

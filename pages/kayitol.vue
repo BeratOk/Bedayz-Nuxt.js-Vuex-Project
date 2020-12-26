@@ -1,7 +1,6 @@
 <template>
   <div>
-  <Bedayz9 />
-  <Bedayz5 />
+  
   <Bedayz10/>
   </div>
 </template>
