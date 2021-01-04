@@ -3,13 +3,14 @@
       <div class="tamamla">
           <div class=al-1>
             <div v-for="cartProduct in added "  v-bind:key="cartProduct">
-            <div v-for="product in productsTemp "  v-bind:key="product">
+            <div v-for="product in Urunler "  v-bind:key="product">
            
               <div v-if="cartProduct == product.id">
                 
           <div class="al-2">
               <div class="photo">
-                  <img :src="product.image"/>
+                  <img :src="getImgUrl(product.image)"/>
+                  {{totalcost(product.price)}}
               </div>
               <div class=ial-1>
                   <a href="#" class="amt-1"><p class="mt-1">{{product.name}}</p></a>
@@ -68,6 +69,23 @@
 <script>
 import { mapState } from 'vuex';
 export default {
+        name: "urun",
+    props:{},
+    methods: {
+        getImgUrl(pic) {
+    return require('~/assets/images/'+pic)
+},
+ 
+    },
+   
+    asyncData (){
+        
+    },
+
+   
+    created() {
+        this.$store.dispatch('Urunlerfetch')
+    },
 data(){
     return{
           expand: false,
@@ -77,7 +95,7 @@ data(){
           dropdownclassal3:'al-3',
           dropdownclassal4:'al-4',
           dropdownclassal7:'al-7',
-          fiyat:203.61
+          deneme:0
           
           
     }
@@ -99,17 +117,30 @@ computed:{
 
     ],
     ),
+    Urunler () {
+        return this.$store.state.Urunler
+      },
     kdv:function(){
         return  parseInt(this.fiyat) * 8 / 100;
         
     },
     kdvdahil:function(){
         return parseInt(this.fiyat)+this.kdv;
+    },
+    fiyat:function(){
+        return parseInt(this.deneme/203)
     }
+    
 },
 methods:{
     testet(){
         console.log(this.added)
+    },
+        getImgUrl(pic) {
+    return require('~/assets/images/'+pic)
+},
+totalcost(price) {
+    this.deneme=parseInt(this.deneme+price);
     },
     dropdown(){
         if(this.dropdownclassal3=='al-3'){

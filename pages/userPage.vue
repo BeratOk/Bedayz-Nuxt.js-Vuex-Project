@@ -1,6 +1,6 @@
 <template>
 <div>
-     <v-btn
+     <center><v-btn
       class="ma-2"
       :loading="loading"
       :disabled="loading"
@@ -8,8 +8,8 @@
       
       @click="pressed()"
     >
-      DEVAM
-    </v-btn>
+      ÇIKIŞ YAP
+    </v-btn></center>
     </div>
 </template>
 
@@ -36,5 +36,7 @@ export default {
 </script>
 
 <style>
-
+.ma-2{
+  color:red !important;
+}
 </style>

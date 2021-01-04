@@ -1,19 +1,19 @@
 <template>
     <div>
         <div class="productdetails">
-            <div v-for="product in productsTemp "  v-bind:key="product">
+            <div v-for="product in Urunler "  v-bind:key="product">
               <div v-if="product.id == productID">
         <div class="columb1">
         <div class="kucukfoto">
-            <img :src="product.image" height="60px" class="kucukresim" />
+            <img :src="getImgUrl(product.image)" height="60px" class="kucukresim" />
             </div>
         </div>
         <div class="columb2">
-        <img :src="product.image"/>
+        <img :src="getImgUrl(product.image)"/>
         </div>
         
         <div class="columb3">
-          <div v-for="product in productsTemp "  v-bind:key="product">
+          <div v-for="product in Urunler "  v-bind:key="product">
               <div v-if="product.id == productID">
             <NuxtLink to="/"><p class="tip1">BEDAYZ</p></NuxtLink>
             <p class="bedelyazi">{{product.name}}</p>
@@ -113,7 +113,26 @@
 import { mapState, mapActions } from 'vuex';
 export default {
 
+        name: "urun",
+    props:{},
+    methods: {
+        getImgUrl(pic) {
+    return require('~/assets/images/'+pic)
+}
+    },
+    asyncData (){
+        
+    },
+  
+   
+    created() {
+        this.$store.dispatch('Urunlerfetch')
+    },
+
      computed:{
+         Urunler () {
+        return this.$store.state.Urunler
+      },
     ...mapState([
       'productsTemp',
       'productsVS',
@@ -143,6 +162,9 @@ export default {
         ...mapActions([
      'addToCart',
    ]),
+   getImgUrl(pic) {
+    return require('~/assets/images/'+pic)
+},
         addToCart(productid)
         
     {

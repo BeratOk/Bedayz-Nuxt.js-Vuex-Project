@@ -11,7 +11,7 @@
            <i class="fa fa-th-list" @click="buyukliste" ></i>
            </div>
            <p class="mt-5">SIRALA: </p>
-           <select v-model="sirala" @change="siralaF()" class=sirala>
+           <select v-model="sirala"  class=sirala>
              <option value="varsayilan">VARSAYILAN</option>
              <option value="urunadiaz">ÜRÜN ADI(A-Z)</option>
              <option value="urunadiza">ÜRÜN ADI(Z-A)</option>
@@ -31,14 +31,14 @@
              <p class="asagiok"> ▼</p>
              </div>
 
-  <div v-for="product in productsTemp " v-bind:key="product">
+  <div v-for="product in Urunler " v-bind:key="product">
       <div class="itemlist">
       <div :id="product.id" :class="div1">
            
        <NuxtLink to="/productpage"><div class="image">
            
-           <img :class="div2" :src="product.imagesrc" @click="goProductPage(product.id);$router.push('/bedayz1')"   @mouseover="product.imagesrc=product.image2" @mouseleave="product.imagesrc=product.image">
-           <div :class="div3" @mouseover="product.imagesrc=product.image2" @mouseleave="product.imagesrc=product.image"> 
+           <img :class="div2" :src="getImgUrl(product.imagesrc)" @click="goProductPage(product.id);$router.push('/bedayz1')"   @mouseover="product.imagesrc=product.image2" @mouseleave="product.imagesrc=product.image">
+           <div :class="div3" @mouseover="product.imagesrc=product.image2" @mouseleave="product.imagesrc=product.image">
                <div class="satinalbuton">
                    <p class="mt-3" @click="addToCart(product.id)">SEPETE EKLE</p>
                    </div>
@@ -65,7 +65,23 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 export default {
-  computed:{
+  name: "urun",
+    props:{},
+
+  methods: {
+    },
+    asyncData (){
+        
+    },
+    created() {
+        this.$store.dispatch('Urunlerfetch')
+    },
+    computed: {
+        
+      Urunler () {
+        return this.$store.state.Urunler
+      },
+
     ...mapState([
       'productsTemp',
       'productsVS',
@@ -108,6 +124,9 @@ export default {
      this.updateProductID(ID);
      
    },
+    getImgUrl(pic) {
+    return require('~/assets/images/'+pic)
+},
     addToCart(ID){
       this.$store.commit('addToCart',ID);
       console.log(this.added);

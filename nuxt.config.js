@@ -21,7 +21,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-  '~/plugins/firebase.js'
+  //'~/plugins/firebase.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -39,6 +39,32 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyAcctQ4PS8rSyZ8HEvPMOg8QNIVfrSXX-Q",
+          authDomain: "bedayznuxt.firebaseapp.com",
+          databaseURL: "https://bedayznuxt-default-rtdb.firebaseio.com",
+          projectId: "bedayznuxt",
+          storageBucket: "bedayznuxt.appspot.com",
+          messagingSenderId: "222455709363",
+          appId: "1:222455709363:web:74e76c8893c667f2fe3ac6",
+          measurementId: "G-4E3LWC72GT"
+        },
+        services: {
+          auth: true,
+          firestore: true,
+          functions: true,
+          storage: true,
+          database: true,
+          messaging: true,
+          performance: true,
+          analytics: true,
+          remoteConfig: true
+        }
+      }
+    ],
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
 

@@ -94,6 +94,9 @@ export default {
        else if(this.password != this.password2){
          alert('Şifreler Eşleşmiyor')
        }
+         else if(this.password != this.password2){
+         alert('Şifreler Eşleşmiyor')
+       }
        else{ 
          this.uyeol()
        } 

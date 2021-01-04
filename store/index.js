@@ -1,6 +1,8 @@
-export const state = {
+export const state = () =>({
   message1:'soner',
   added: [],
+  totalcost:0,
+  Urunler: [],
   productID:'1',
   cartProducts: [
       { id: '1'},{ id:'2'}
@@ -10,9 +12,9 @@ export const state = {
         id: '1',
         name: 'BALANCE HOODIE ',
          price: 219.90,
-        imagesrc:require("~/assets/images/urun1-1.png"),
-        image:require("~/assets/images/urun1-1.png"),
-        image2:require("~/assets/images/urun1-2.png")
+        imagesrc:"~/assets/images/urun1-1.png",
+        image:"~/assets/images/urun1-1.png",
+        image2:"~/assets/images/urun1-2.png"
       },
       {
          id: '2',
@@ -223,9 +225,17 @@ export const state = {
         
         ]
 
-};
-export const getters= {};
+});
+export const getters= () => ({
+  StoktakiUrunler(state,getters){
+    return state.Urunler
+  }
+});
 export const mutations= {
+
+  setUrunler(state, Urunler) {
+    state.Urunler = Urunler
+ },
 
   setProductList(state,productListName){
       state.productsTemp=productListName;
@@ -239,10 +249,17 @@ export const mutations= {
   addToCart(state,item){
       state.added.push(item);
       
+      
 
   },
 };
 export const actions= {
+    async Urunlerfetch({ commit }) {
+    const urunler = await this.$fire.database.ref("Urunler").once("value");
+    commit("setUrunler", urunler.val());
+    },
+
+  
   updateProductList({commit},productListName){
       commit('setProductList',productListName);
   },
