@@ -114,7 +114,9 @@ import { mapState, mapActions } from 'vuex';
 export default {
 
         name: "urun",
-    props:{},
+    props:{
+        counter:1
+    },
     methods: {
         getImgUrl(pic) {
     return require('~/assets/images/'+pic)
@@ -173,6 +175,9 @@ export default {
     },
         arttir: function(){
             this.counter++;
+        },
+        deneme: function(){
+           counter++;
         },
         eksilt: function(){
             if(this.counter>1){

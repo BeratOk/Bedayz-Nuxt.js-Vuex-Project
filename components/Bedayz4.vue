@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="kaissu">
     <div id="uyegiris">
       <div class="tercih">
         <div class="tercihtab">
